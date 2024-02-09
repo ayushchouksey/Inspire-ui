@@ -1,0 +1,8 @@
+.header{
+    background: aliceblue;
+    height: 50px;
+    .header-items{
+        flex-grow: 1;
+        flex-direction: row-reverse;
+    }
+}
