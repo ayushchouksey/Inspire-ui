@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserModule } from '@angular/platform-browser';
-import {CardModule} from 'primeng/card';
+import { FaIconLibrary, FontAwesomeModule, } from '@fortawesome/angular-fontawesome';
+import { faBell, faUser } from '@fortawesome/free-regular-svg-icons';
 import { AgChartsAngularModule } from 'ag-charts-angular';
-import { GoogleMapsModule } from '@angular/google-maps'
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MapComponent } from './components/map/map.component';
 import { NotificationCenterComponent } from './components/notification-center/notification-center.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +25,18 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AppRoutingModule,
     CardModule,
     AgChartsAngularModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    TableModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(library: FaIconLibrary) {
+    library.addIcons(
+      faBell,
+      faUser
+    );
+  }
+}

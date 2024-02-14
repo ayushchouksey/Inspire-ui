@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
-import { MarkerClusterer } from "@googlemaps/markerclusterer";
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Marker, MarkerClusterer } from "@googlemaps/markerclusterer";
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrl: './map.component.scss'
 })
-export class MapComponent {
+export class MapComponent implements OnChanges, AfterViewInit {
+  @Input() latlng!: {};
   display: any;
   center: google.maps.LatLngLiteral = {
-      lat: 22.2736308,
-      lng: 70.7512555
+    lat: 22.2736308,
+    lng: 70.7512555
   };
   zoom = 6;
-  
+  markers: any;
+  map: any;
+  infoWindow!: google.maps.InfoWindow;
   locations = [
     { lat: -31.56391, lng: 147.154312 },
     { lat: -33.718234, lng: 150.363181 },
@@ -39,36 +42,44 @@ export class MapComponent {
     { lat: -42.735258, lng: 147.438 },
     { lat: -43.999792, lng: 170.463352 },
   ];
-  constructor(){
+
+
+  constructor() {
     this.initMap()
   }
-  
-  
-  /*------------------------------------------
-  --------------------------------------------
-  moveMap()
-  --------------------------------------------
-  --------------------------------------------*/
- 
+  ngAfterViewInit(): void {
+    this.map = this.getMap();
+  }
+  ngOnChanges(simpleOnChanges: SimpleChanges): void {
+    console.log(simpleOnChanges['latlng'].currentValue);
+    if (simpleOnChanges['latlng'].currentValue.lat && simpleOnChanges['latlng'].currentValue.lng) {
+      const latLng = new google.maps.LatLng(
+        simpleOnChanges['latlng'].currentValue.lat,
+        simpleOnChanges['latlng'].currentValue.lng
+      );
+      (this.map as google.maps.Map)?.setCenter(latLng);
+      (this.map as google.maps.Map)?.setZoom(8);
+      this.setMarkersOnMap([simpleOnChanges['latlng'].currentValue]);
+    }
+  }
+
   moveMap(event: google.maps.MapMouseEvent) {
     if (event.latLng != null) this.center = (event.latLng.toJSON());
   }
 
-  /*------------------------------------------
-  --------------------------------------------
-  move()
-  --------------------------------------------
-  --------------------------------------------*/
   move(event: google.maps.MapMouseEvent) {
-      if (event.latLng != null) this.display = event.latLng.toJSON();
+    if (event.latLng != null) this.display = event.latLng.toJSON();
   }
 
   async initMap() {
     // Request needed libraries.
     const { Map, InfoWindow } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
-  
-    const map = new google.maps.Map(
+    this.setMarkersOnMap(this.locations);
+  }
+
+  getMap() {
+    return new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
         zoom: 3,
@@ -76,17 +87,14 @@ export class MapComponent {
         mapId: 'DEMO_MAP_ID',
       }
     );
-  
-    const infoWindow = new google.maps.InfoWindow({
-      content: "",
-      disableAutoPan: true,
-    });
-  
+  }
+
+  getMarkers(locations: any[]) {
+
     // Create an array of alphabetical characters used to label the markers.
     const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  
-    // Add some markers to the map.
-    const markers = this.locations.map((position, i) => {
+
+    return locations.map((position, i) => {
       const label = labels[i % labels.length];
       const pinGlyph = new google.maps.marker.PinElement({
         glyph: label,
@@ -96,20 +104,32 @@ export class MapComponent {
         position,
         content: pinGlyph.element,
       });
-  
+
       // markers can only be keyboard focusable when they have click listeners
       // open info window when marker is clicked
       marker.addListener("click", () => {
-        infoWindow.setContent(position.lat + ", " + position.lng);
-        infoWindow.open(map, marker);
+        this.infoWindow.setContent(position.lat + ", " + position.lng);
+        this.infoWindow.open(this.map, marker);
       });
+      google.maps.event.trigger(marker, 'click');
       return marker;
     });
-  
-    // Add a marker clusterer to manage the markers.
-    new MarkerClusterer({ markers, map });
   }
-  
-  
-  
+
+  setMarkersOnMap(locations: any[]) {
+    if (this.infoWindow) {
+      this.infoWindow.close();
+    }
+    this.infoWindow = new google.maps.InfoWindow({
+      content: "",
+      disableAutoPan: true,
+    });
+
+    this.infoWindow.close();
+    // Add some markers to the map.
+    const markers: Marker[] = this.getMarkers(locations);
+
+    // Add a marker clusterer to manage the markers.
+    new MarkerClusterer({ markers, map: this.map });
+  }
 }
