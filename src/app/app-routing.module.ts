@@ -5,6 +5,10 @@ import { NotificationCenterComponent } from './components/notification-center/no
 
 const routes: Routes = [
   {
+    path:"dashboard/:posId",
+    component:DashboardComponent
+  },
+  {
     path:"dashboard",
     component:DashboardComponent
   },
