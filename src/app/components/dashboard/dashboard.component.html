@@ -1,15 +1,61 @@
 <div>
+  <div class="d-flex justify-content-between mt-5">
+    <p-card class="md-smart-card">
+      <ng-template pTemplate="header">
+        POS
+    </ng-template>
+    <p>23</p>
+    </p-card>
+    <p-card class="md-smart-card">
+      <ng-template pTemplate="header">
+        POPS
+    </ng-template>
+    <p>300</p>
+    </p-card>
+    <p-card class="md-smart-card">
+      <ng-template pTemplate="header">
+        Devices
+    </ng-template>
+    <p>1000</p>
+    </p-card>
+    <p-card class="md-smart-card">
+      <ng-template pTemplate="header">
+        Orders
+    </ng-template>
+    <p>6000</p>
+    </p-card>
+  </div>
+  <div class="mt-5">
+    <p-card class="lg-chart-card">
+      <ng-template pTemplate="header">
+          Sales
+      </ng-template>
+      <ag-charts-angular
+        style="height: 100%"
+        [options]="options"
+      ></ag-charts-angular>
+    </p-card>
+  </div>
     <div class="d-flex justify-content-between mt-5">
-        <p-card class="card">
+        <p-card class="md-chart-card">
           <ng-template pTemplate="header">
-            POPs
+            POS
           </ng-template>
           <ag-charts-angular
         style="height: 100%"
         [options]="pieChartOptions"
       ></ag-charts-angular>
       </p-card>
-      <p-card class="card">
+      <p-card class="md-chart-card">
+        <ng-template pTemplate="header">
+          POPS
+        </ng-template>
+        <ag-charts-angular
+        style="height: 100%"
+        [options]="pieChartOptions1"
+      ></ag-charts-angular>
+      </p-card>
+      <p-card class="md-chart-card">
         <ng-template pTemplate="header">
           Orders
         </ng-template>
@@ -19,26 +65,8 @@
       ></ag-charts-angular>
       </p-card>
       </div>
-      <div class="d-flex justify-content-between mt-5">
-        <p-card class="card">
-          <ng-template pTemplate="header">
-              
-          </ng-template>
-          <ag-charts-angular
-          style="height: 100%"
-          [options]="chartOptions">
-         </ag-charts-angular>
-        </p-card>
-        <p-card class="card">
-          <ng-template pTemplate="header">
-              Beverages Sales
-          </ng-template>
-          <ag-charts-angular
-            style="height: 100%"
-            [options]="options"
-          ></ag-charts-angular>
-        </p-card>
-      </div>
+      
+      
       
       <div class="mt-5">
         <app-map></app-map>

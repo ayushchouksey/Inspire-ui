@@ -17,6 +17,7 @@ export class DashboardComponent {
   public chartOptions: AgChartOptions;
   public options: AgChartOptions;
   public pieChartOptions: AgChartOptions;
+  public pieChartOptions1: AgChartOptions;
   public doughnutOptions: AgChartOptions;
 
  
@@ -31,6 +32,7 @@ export class DashboardComponent {
         { month: 'Sep', iceCreamSales: 950000 },
         { month: 'Nov', iceCreamSales: 200000 },
       ],
+      height:220,
       // Series: Defines which chart type and data to use
       series: [{ type: 'bar', xKey: 'month', yKey: 'iceCreamSales', yName:'Month', xName:'Sales' } as AgBarSeriesOptions],
       axes:[
@@ -60,6 +62,7 @@ export class DashboardComponent {
         { month: "Sep", "Primary Circuit (%)": 60, "Beverages Sales": 950000 },
         { month: "Nov", "Primary Circuit (%)": 50, "Beverages Sales": 200000 },
       ] ,
+      height:220,
       // Series: Defines which chart type and data to use
       series: [
         {
@@ -96,9 +99,25 @@ export class DashboardComponent {
     };
     this.pieChartOptions = {
       data: [
-        { asset: 'Online', amount: 60000 },
-        { asset: 'Offline', amount: 40000 },
+        { asset: 'Online', amount: 14 },
+        { asset: 'Offline', amount: 9 },
     ],
+    height:220,
+      
+      series: [
+        {
+          type: "pie",
+          angleKey: "amount",
+          legendItemKey: "asset",
+        },
+      ],
+    };
+    this.pieChartOptions1 = {
+      data: [
+        { asset: 'Online', amount: 230 },
+        { asset: 'Offline', amount: 70 },
+    ],
+    height:220,
       
       series: [
         {
@@ -114,7 +133,7 @@ export class DashboardComponent {
         { asset: 'Inprogress', amount: 40000 },
         { asset: 'Completed', amount: 7000 },
     ],
-      
+    height:220,
       series: [
         {
           type: "pie",

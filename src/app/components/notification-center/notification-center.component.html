@@ -1,9 +1,9 @@
-<div class="mt-5">
-    <div class="p-table-container">
+<div class="mt-5 ">
+    <div class="p-table-container mb-5">
         <p-table [paginator]="true" [rows]="5" [value]="data" [tableStyle]="{ 'height': '2rem' }" [rowsPerPageOptions]="[5, 10, 25, 50]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
             <ng-template pTemplate="header">
                 <tr>
-                    <th [pSortableColumn]="col.field === 'location' ? 'address.location' : col.field" *ngFor="let col of cols">{{col.header}} <p-sortIcon [field]="col.field"></p-sortIcon></th>
+                    <th [pSortableColumn]="col.field" *ngFor="let col of cols">{{col.header}} <p-sortIcon [field]="col.field"></p-sortIcon></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
@@ -16,5 +16,5 @@
             </ng-template>
         </p-table>
     </div>
-    <app-map [latlng]="latlng"></app-map>
+    <app-map  [latlng]="latlng"></app-map>
 </div>

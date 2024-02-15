@@ -1,11 +1,40 @@
-::ng-deep .p-card { 
-    padding: 10px;
-    height: 400px;
-}
-.card{
-    width: 45%;
+
+.md-chart-card{
+    width: 30%;
     border: none;
-    
+    ::ng-deep .p-card { 
+        padding: 10px;
+        height: 300px;
+    }
 }
-::ng-deep .p-card-content{
+
+.md-smart-card{
+    width: 23%;
+    border: none;
+    ::ng-deep .p-card { 
+        padding: 10px;
+        height: 150px;
+    }
+    ::ng-deep .p-card-header{
+        font-size: 24px;
+        background: #5089db;
+        color: white;
+        border-radius: 3px;
+    }
+    
+    ::ng-deep .p-card .p-card-body .p-card-content{
+        padding: 0;
+        padding-top: 5px;
+    }
+
+    p{
+        font-size: 26px;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+::ng-deep .p-card-header{
+    font-weight: bold;
+    text-align: center;
 }

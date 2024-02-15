@@ -2,3 +2,18 @@
     min-height: auto;
     max-height: 25rem;
 }
+.p-table-container{
+    th{
+        background-color: #5089db;
+        color: #fff;
+    }
+}
+::ng-deep .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon{
+    color: #fff;
+}
+::ng-deep .p-datatable .p-sortable-column .p-sortable-column-icon{
+    color: #fff;
+}
+::ng-deep .p-datatable .p-sortable-column.p-highlight{
+    color: #fff;
+}
